@@ -10,6 +10,6 @@
   sudo: no
 
 - name: pyenv-virtualenv.READMEの転送
-  copy: src={{ user_home }}/pyenv-virtualenv/pyenv-virtualenv.README dest={{ user_home }} mode=0644
+  copy: src=pyenv-virtualenv.README dest={{ user_home }}/pyenv-virtualenv/pyenv-virtualenv.README mode=0644
   sudo: no
 

@@ -9,8 +9,8 @@
     user_home: /home/vagrant
   roles:
     # pyenvのインストール
-    - {role: pyenv.centos7, pyenv_python_version: 3.5.1, tags: pyenv }
-    #- {role: pyenv.centos7, pyenv_python_version: 2.7.11, tags: pyenv }
+    - {role: pyenv.centos7, pyenv_python_version: 2.7.11, tags: pyenv }
+    #- {role: pyenv.centos7, pyenv_python_version: 3.5.1, tags: pyenv }
 
     # pyenv-virtualenvのインストール
     - {role: pyenv-virtualenv.centos7, tags: pyenv-virtualenv }

@@ -1,22 +1,26 @@
-### pyenvでテストディレクトリで利用するPythonのバージョンを設定
-$ cd ${HOME}/pyenv-virtualenv
-$ pyenv local 3.5.1
+### 現在利用しているPythonのバージョンを確認
 $ pyenv versions
 ================================================
   system
-  2.7.10
-* 3.5.1 (set by /home/vagrant/pyenv-virtualenv/.python-version)
+* 2.7.11 (set by /usr/local/pyenv/version)
 ================================================
+
+### Python 3.5.1 のインストール
+$ sudo pyenv install 3.5.1
 
 ### pyenv-virtualenvで仮想環境の構築
+$ cd ${HOME}/pyenv-virtualenv
 $ sudo pyenv virtualenv 3.5.1 pyenv-virtualenv
 $ pyenv local pyenv-virtualenv
-(test) $ pyenv versions
+(pyenv-virtualenv) $ pyenv versions
 ================================================
   system
-  2.7.10
-  3.5.1/envs/test
-* test (set by /home/vagrant/pyenv-virtualenv/.python-version)
+  2.7.11
+  3.5.1
+  3.5.1/envs/pyenv-virtualenv
+* pyenv-virtualenv (set by /home/vagrant/pyenv-virtualenv/.python-version)
 ================================================
 
-※ これでこのディレクトリに移動すると自動で環境が設定される
+### pipとsetuptoolsをupgradeしておく
+(pyenv-virtualenv)$ sudo pip install --upgrade pip
+(pyenv-virtualenv)$ sudo pip install --upgrade setuptools
