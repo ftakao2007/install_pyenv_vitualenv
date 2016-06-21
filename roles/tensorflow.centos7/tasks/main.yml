@@ -1,0 +1,35 @@
+---
+- name: tensorflowディレクトリの作成
+  file: state=directory path={{ user_home }}/tensorflow owner={{ user }} group={{ user_group }} mode=0755
+
+- name: pyenv install {{ pyenv_python_local_version }}
+  args:
+    creates: "{{ pyenv_root }}/versions/{{ pyenv_python_local_version }}/bin/python"
+  shell: |
+   . /etc/profile.d/pyenv.sh &&
+   pyenv install {{ pyenv_python_local_version }}
+
+- name: pyenv local {{ pyenv_python_local_version }}
+  shell: '{{ pyenv_root }}/bin/pyenv local {{ pyenv_python_local_version }} chdir={{ user_home }}/tensorflow'
+  sudo: no
+
+
+- name: pyenv virtualenv {{ pyenv_python_local_version }} tensorflow
+  shell: '{{ pyenv_root }}/bin/pyenv virtualenv {{ pyenv_python_local_version }} tensorflow chdir={{ user_home }}/tensorflow creates={{ pyenv_root }}/versions/tensorflow'
+
+- name: pyenv local tensorflow
+  shell: '{{ pyenv_root }}/bin/pyenv local tensorflow chdir={{ user_home }}/tensorflow'
+
+- name: pip upgrade
+  shell: '{{ pyenv_root }}/shims/pip install --upgrade pip chdir={{ user_home }}/tensorflow'
+
+- name: TensorFlowのインストール
+  shell: '{{ pyenv_root }}/shims/pip install --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.9.0rc0-cp35-cp35m-linux_x86_64.whl chdir={{ user_home }}/tensorflow'
+
+- name: READMEの転送
+  copy: src=tensorflow.README dest={{ user_home }}/tensorflow/README mode=0644
+  sudo: no
+
+- name: test.pyの転送
+  copy: src=test.py dest={{ user_home }}/tensorflow/test.py mode=0644
+  sudo: no

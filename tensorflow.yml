@@ -1,0 +1,21 @@
+---
+- hosts: all
+  gather_facts: no
+  sudo: yes
+  vars:
+    user: vagrant
+    user_group: vagrant
+    user_home: /home/vagrant
+    pyenv_root: /usr/local/pyenv
+  roles:
+    # pyenvのインストール
+    - {role: pyenv.centos, tags: pyenv }
+
+    # pyenv-virtualenvのインストール
+    - {role: pyenv-virtualenv.centos, pyenv_python_version: 3.5.1, tags: pyenv-virtualenv }
+
+    # pyenv環境下でpipのインストール
+    - {role: pip_use_pyenv_python.centos, tags: pip }
+
+    # TensorFlowのインストール
+    - {role: tensorflow.centos7, pyenv_python_local_version: 3.5.1, tags: tensorflow }
